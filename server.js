@@ -49,10 +49,10 @@ app.post('/contact/send-message', (req, res) => {
 
     if(author && sender && title && image && message && 
         (image.mimetype === 'image/png' || 'image/jpg' || 'image/jpeg' || 'image/gif')) {
-        res.render('contact', { isSent :true, filename: image.name });
+        res.render('contact', { isSent: true, filename: image.name });
     }
     else {
-        res.render('contact', { isError :true });
+        res.render('contact', { isError: true });
     }
 });
 
