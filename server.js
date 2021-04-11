@@ -1,12 +1,14 @@
 const express = require('express');
 const hbs = require('express-handlebars');
 const path = require('path');
+//const upload = require('contact.hbs');
 
 const app = express();
 app.engine('.hbs', hbs());
 app.set('view engine', '.hbs');
 
 app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.urlencoded({ extended: false }));
 
 app.get('/', (req, res) => {
     res.render('index');
@@ -30,6 +32,19 @@ app.get('/info', (req, res) => {
 
 app.get('/history', (req, res) => {
     res.render('history');
+});
+
+app.post('/contact/send-message', (req, res) => {
+    
+    const { author, sender, title, picture, message } = req.body;
+
+    if(author && sender && title && picture && message) {
+        res.render('contact', { isSent :true });
+    }
+    else {
+        res.render('contact', { isError :true });
+    }
+    /* res.json(req.body); */
 });
 
 app.use((req, res) => {
